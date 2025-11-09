@@ -2,218 +2,209 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Live Weather | Madhu</title>
-    <!-- CSS File -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Weather | Madhu</title>
+  <!-- CSS File -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Search Bar -->
-    <div class="searchBar">
-        <div class="searchBarParentDiv">
-            <input type="text" class="inputField" placeholder="Search City">
-            <img src="./images/search.png" alt="" class="searchIcon" width="35px">
-        </div>
+  <!-- Search Bar -->
+  <div class="searchBar">
+    <div class="searchBarParentDiv">
+      <input type="text" class="inputField" placeholder="Search City">
+      <img src="./images/search.png" alt="search" class="searchIcon" width="35px">
     </div>
-    <!-- Main Content -->
-    <div class="mainContentParentDiv d-flex">
-        <!-- Left Side  -->
-        <div class="leftDiv">
-            <div class="currentTempDiv leftChild p-3 d-flex flex-column gap-1">
-                <h2 id="cityName">City Name</h2>
-                <h5 id="cityTemp">0 &deg;C</h5>
-                <h6 id="skyDesc">Sky Description</h6>
-                <hr class="line">
-                <div class="d-flex gap-3">
-                    <img src="./images/calendar.png" alt="" width="25px">
-                    <h6>Date</h6>
-                </div>
-                <div class="d-flex gap-3">
-                    <img src="./images/time.png" alt="" width="25px">
-                    <h6>Time</h6>
-                </div>
+  </div>
 
-            </div>
-            <div class="nextFiveDays leftChild p-3 d-flex flex-column">
-                <h6 id="comingFivedaysTitle">Coming 5 days</h6>
-                <div class="d-flex flex-column gap-2">
-                    <div class="forecastRow d-flex align-items-center justify-content-between">
-                        <div class="d-flex gap-1 align-items-center">
-                            <img src="./images/cloud.png" alt="" width="35px">
-                            <h6>&deg; C</h6>
-                        </div>
-                        <h6>Saturday</h6>
-                        <h6>08-03-2025</h6>
-                    </div>
-                    <div class="forecastRow d-flex align-items-center justify-content-between">
-                        <div class="d-flex gap-1 align-items-center">
-                            <img src="./images/cloud.png" alt="" width="35px">
-                            <h6>&deg; C</h6>
-                        </div>
-                        <h6>Saturday</h6>
-                        <h6>08-03-2025</h6>
-                    </div>
-                    <div class="forecastRow d-flex align-items-center justify-content-between">
-                        <div class="d-flex gap-1 align-items-center">
-                            <img src="./images/cloud.png" alt="" width="35px">
-                            <h6>&deg; C</h6>
-                        </div>
-                        <h6>Saturday</h6>
-                        <h6>08-03-2025</h6>
-                    </div>
-                    <div class="forecastRow d-flex align-items-center justify-content-between">
-                        <div class="d-flex gap-1 align-items-center">
-                            <img src="./images/cloud.png" alt="" width="35px">
-                            <h6>&deg; C</h6>
-                        </div>
-                        <h6>Saturday</h6>
-                        <h6>08-03-2025</h6>
-                    </div>
-                    <div class="forecastRow d-flex align-items-center justify-content-between">
-                        <div class="d-flex gap-1 align-items-center">
-                            <img src="./images/cloud.png" alt="" width="35px">
-                            <h6>&deg; C</h6>
-                        </div>
-                        <h6>Saturday</h6>
-                        <h6>08-03-2025</h6>
-                    </div>
-                </div>
-            </div>
+  <!-- Main Content -->
+  <div class="mainContentParentDiv d-flex">
+    <!-- LEFT SIDE -->
+    <div class="leftDiv">
+      <div class="currentTempDiv leftChild p-3 d-flex flex-column gap-1">
+        <h2 id="cityName">City Name</h2>
+        <h5 id="cityTemp">0 &deg;C</h5>
+        <h6 id="skyDesc">Sky Description</h6>
+        <hr class="line">
+        <div class="d-flex gap-3">
+          <img src="./images/calendar.png" alt="" width="25px">
+          <h6>Date</h6>
         </div>
-        <!-- RIGHT SIDE -->
-        <div class="rightDiv d-flex flex-column justify-content-center align-items-center gap-2">
-            <!-- Row 1: Metrics -->
-            <div class="rightRow rowOne d-flex align-items-center justify-content-between">
-                <div class="extraMetric d-flex align-items-center gap-3">
-                    <img src="./images/wind (1).png" width="35px" alt="">
-                    <div class="d-flex flex-column gap-3">
-                        <h6>MetricName</h6>
-                        <h6>MetricValue</h6>
-                    </div>
-                </div>
-                <div class="extraMetric d-flex align-items-center gap-3">
-                    <img src="./images/wind (1).png" width="35px" alt="">
-                    <div class="d-flex flex-column gap-3">
-                        <h6>MetricName</h6>
-                        <h6>MetricValue</h6>
-                    </div>
-                </div>
-                <div class="extraMetric d-flex align-items-center gap-3">
-                    <img src="./images/wind (1).png" width="35px" alt="">
-                    <div class="d-flex flex-column gap-3">
-                        <h6>MetricName</h6>
-                        <h6>MetricValue</h6>
-                    </div>
-                </div>
-                <div class="extraMetric d-flex align-items-center gap-3">
-                    <img src="./images/wind (1).png" width="35px" alt="">
-                    <div class="d-flex flex-column gap-3">
-                        <h6>MetricName</h6>
-                        <h6>MetricValue</h6>
-                    </div>
-                </div>
-            </div>
-            <!-- Row 2: Sunrise / AQI -->
-            <div class="rightRow rowTwo d-flex justify-content-between align-items-center">
-                <div class="AQI rowTwoDiv p-3 d-flex flex-column gap-2">
-                    <h5>AirQuality Index (AQI)</h5>
-                    <div class="d-flex align-items-center">
-                        <img src="./images//wind.png" width="40px" alt="">
-                        <div class="text-center">
-                            <h6>AQI Metric Name</h6>
-                            <h6>0</h6>
-                        </div>
-                        <div class="text-center">
-                            <h6>AQI Metric Name</h6>
-                            <h6>0</h6>
-                        </div>
-                        <div class="text-center">
-                            <h6>AQI Metric Name</h6>
-                            <h6>0</h6>
-                        </div>
-                        <div class="text-center">
-                            <h6>AQI Metric Name</h6>
-                            <h6>0</h6>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="sunRise rowTwoDiv p-3">
-                    <h5>SunRise & SunSet</h5>
-                    <div class="d-flex align-items-center justify-content-center gap-5 mt-3">
-
-                        <div class="sunriseDiv d-flex gap-2 align-items-center">
-                            <img src="./images/sun (1).png" width="60px" alt="">
-                            <div class="d-flex flex-column gap-2">
-                                <h6>SunRise </h6>
-                                <h5>6:00AM</h5>
-                            </div>
-                        </div>
-                        <div class="sunsetDiv d-flex align-items-center gap-3">
-                            <img src="./images/moon.png" width="45px" alt="">
-                            <div class="d-flex flex-column gap-2">
-                                <h6>SunSet</h6>
-                                <h5>7:00 PM</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <!-- Row 3: Today's Hourly -->
-            <div class="rightRow towThree d-flex flex-column gap-2">
-                <h5>Today</h5>
-                <div class="d-flex justify-content-between todayTempParentDiv">
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-                    <div class="todayTemp">
-                        <h6>9:00AM</h6>
-                        <img src="./images/cloudy.png" width="35px" alt="">
-                        <h5>15 &deg;C</h5>
-                    </div>
-
-                </div>
-            </div>
+        <div class="d-flex gap-3">
+          <img src="./images/time.png" alt="" width="25px">
+          <h6>Time</h6>
         </div>
+      </div>
 
+      <div class="nextFiveDays leftChild p-3 d-flex flex-column">
+        <h6 id="comingFivedaysTitle">Coming 5 days</h6>
+        <div class="d-flex flex-column gap-2">
+          <!-- Repeat 5 forecast rows -->
+          <div class="forecastRow d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-1 align-items-center">
+              <img src="./images/cloud.png" alt="" width="35px">
+              <h6>&deg; C</h6>
+            </div>
+            <h6>Day</h6>
+            <h6>Date</h6>
+          </div>
+          <div class="forecastRow d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-1 align-items-center">
+              <img src="./images/cloud.png" alt="" width="35px">
+              <h6>&deg; C</h6>
+            </div>
+            <h6>Day</h6>
+            <h6>Date</h6>
+          </div>
+          <div class="forecastRow d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-1 align-items-center">
+              <img src="./images/cloud.png" alt="" width="35px">
+              <h6>&deg; C</h6>
+            </div>
+            <h6>Day</h6>
+            <h6>Date</h6>
+          </div>
+          <div class="forecastRow d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-1 align-items-center">
+              <img src="./images/cloud.png" alt="" width="35px">
+              <h6>&deg; C</h6>
+            </div>
+            <h6>Day</h6>
+            <h6>Date</h6>
+          </div>
+          <div class="forecastRow d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-1 align-items-center">
+              <img src="./images/cloud.png" alt="" width="35px">
+              <h6>&deg; C</h6>
+            </div>
+            <h6>Day</h6>
+            <h6>Date</h6>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- RIGHT SIDE -->
+    <div class="rightDiv d-flex flex-column justify-content-center align-items-center gap-2">
 
+      <!-- Row 1: Extra Metrics -->
+      <div class="rightRow rowOne d-flex align-items-center justify-content-between">
+        <div class="extraMetric d-flex align-items-center gap-3">
+          <img src="./images/wind (1).png" width="35px" alt="">
+          <div class="d-flex flex-column gap-3">
+            <h6>Wind</h6>
+            <h6>m/s</h6>
+          </div>
+        </div>
+        <div class="extraMetric d-flex align-items-center gap-3">
+          <img src="./images/wind (1).png" width="35px" alt="">
+          <div class="d-flex flex-column gap-3">
+            <h6>Humidity</h6>
+            <h6>%</h6>
+          </div>
+        </div>
+        <div class="extraMetric d-flex align-items-center gap-3">
+          <img src="./images/wind (1).png" width="35px" alt="">
+          <div class="d-flex flex-column gap-3">
+            <h6>Pressure</h6>
+            <h6>hPa</h6>
+          </div>
+        </div>
+        <div class="extraMetric d-flex align-items-center gap-3">
+          <img src="./images/wind (1).png" width="35px" alt="">
+          <div class="d-flex flex-column gap-3">
+            <h6>Feels Like</h6>
+            <h6>&deg;C</h6>
+          </div>
+        </div>
+      </div>
 
-    <!-- JavaScript File -->
-    <script src="script.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+      <!-- Row 2: AQI + Sunrise/Sunset -->
+      <div class="rightRow rowTwo d-flex justify-content-between align-items-center">
+        <!-- Air Quality -->
+        <div class="AQI rowTwoDiv p-3 d-flex flex-column gap-2">
+          <h5>Air Quality Index (AQI)</h5>
+          <div class="d-flex align-items-center justify-content-between w-100 mt-3">
+            <div class="text-center">
+              <h6>CO (μg/m³)</h6>
+              <h6>0</h6>
+            </div>
+            <div class="text-center">
+              <h6>NO₂ (μg/m³)</h6>
+              <h6>0</h6>
+            </div>
+            <div class="text-center">
+              <h6>SO₂ (μg/m³)</h6>
+              <h6>0</h6>
+            </div>
+            <div class="text-center">
+              <h6>O₃ (μg/m³)</h6>
+              <h6>0</h6>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sunrise & Sunset -->
+        <div class="sunRise rowTwoDiv p-3">
+          <h5>SunRise & SunSet</h5>
+          <div class="d-flex align-items-center justify-content-center gap-5 mt-3">
+            <div class="sunriseDiv d-flex gap-2 align-items-center">
+              <img src="./images/sun (1).png" width="60px" alt="">
+              <div class="d-flex flex-column gap-2">
+                <h6>SunRise</h6>
+                <h5>6:00 AM</h5>
+              </div>
+            </div>
+            <div class="sunsetDiv d-flex align-items-center gap-3">
+              <img src="./images/moon.png" width="45px" alt="">
+              <div class="d-flex flex-column gap-2">
+                <h6>SunSet</h6>
+                <h5>7:00 PM</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Today's Hourly -->
+      <div class="rightRow towThree d-flex flex-column gap-2">
+        <h5>Today</h5>
+        <div class="d-flex justify-content-between todayTempParentDiv flex-wrap">
+          <div class="todayTemp">
+            <h6>9:00AM</h6>
+            <img src="./images/cloudy.png" width="35px" alt="">
+            <h5>15 &deg;C</h5>
+          </div>
+          <div class="todayTemp">
+            <h6>9:00AM</h6>
+            <img src="./images/cloudy.png" width="35px" alt="">
+            <h5>15 &deg;C</h5>
+          </div>
+          <div class="todayTemp">
+            <h6>9:00AM</h6>
+            <img src="./images/cloudy.png" width="35px" alt="">
+            <h5>15 &deg;C</h5>
+          </div>
+          <div class="todayTemp">
+            <h6>9:00AM</h6>
+            <img src="./images/cloudy.png" width="35px" alt="">
+            <h5>15 &deg;C</h5>
+          </div>
+          <div class="todayTemp">
+            <h6>9:00AM</h6>
+            <img src="./images/cloudy.png" width="35px" alt="">
+            <h5>15 &deg;C</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Files -->
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
 </body>
-
 </html>
