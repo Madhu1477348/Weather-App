@@ -1,60 +1,55 @@
 body {
-  background: url("./images/Backgroung.jpg");
-  background-position: bottom;
+  background:linear-gradient(rgba(100, 15, 15, 1), rgba(15, 15, 15, 0.5)), url("./images/2148933766.jpg");
+  background-size: cover;
   background-attachment: fixed;
-  font-family: "Comfortaa", sans-serif;
-  color: white;
+  background-position: bottom;
+  color: white !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 !important;
 }
 
 .searchBar {
   height: 10vh;
-  /* background: black; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.inputfield {
-  outline: none;
-  color: Black;
-}
-
 .searchBarParentDiv {
   width: 50%;
   height: fit-content;
   position: relative;
 }
-
-.inputfield {
+.inputField {
   width: 100%;
   border-radius: 25px;
   padding: 10px;
   outline: none;
-  border: 0px;
 }
-
 .searchIcon {
   position: absolute;
   right: 10px;
   top: 5px;
 }
-
 .searchIcon:hover {
   cursor: pointer;
 }
-
 .mainContentParentDiv {
   height: 90vh;
   flex-direction: row;
 }
-
 .leftDiv {
   width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-
 .leftChild {
   background: rgba(212, 212, 212, 0.4);
   width: 85%;
@@ -63,60 +58,44 @@ body {
   border-radius: 15px;
   backdrop-filter: blur(15px);
 }
-
 .currentTempDiv h6 {
   font-size: larger;
 }
-
 #cityName {
-  font-size: xx-large;
-}
-
-#cityTemp {
-  font-size: x-large;
+  font-size: 25px;
 }
 
 .rightDiv {
   width: 70%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-right: 45px;
 }
-
-#comingFiveDaysTitle {
+#comingFivedaysTitle {
   font-size: x-large;
 }
-
 .rightRow {
   height: 27vh;
   width: 100%;
 }
-
 .extraMetric {
   background: rgba(212, 212, 212, 0.4);
   padding: 5% 2%;
   width: fit-content;
   border-radius: 15px;
   align-items: center;
-  backdrop-filter: blur(15px);
 }
-
 .rowTwoDiv {
   background: rgba(212, 212, 212, 0.4);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(15%);
   width: 45%;
   height: 85%;
   border-radius: 15px;
 }
-
 .todayTemp {
   background: rgba(212, 212, 212, 0.4);
+  backdrop-filter: blur(15%);
   width: fit-content;
   padding: 15px;
   border-radius: 15px;
-  backdrop-filter: blur(15px);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -134,71 +113,58 @@ body {
     gap: 15px;
     margin-top: 15px;
   }
-
-  .rightDiv {
-    width: 100%;
-    padding-right: 0px;
-  }
-
   .mainContentParentDiv {
     height: 90vh;
     flex-direction: column;
   }
-
   .searchBar {
     width: 100%;
   }
-
   .searchBarParentDiv {
-    width: 85%;
+    width: 58%;
     height: fit-content;
     position: relative;
   }
-
+  .leftChild{
+    align-items: center;
+    justify-content: center;
+  }
+  .line{
+    width: 85%;
+  }
+  .rightDiv {
+    width: 100%;
+    margin-top: 85px;
+  }
   .rowOne {
     /* flex-direction: column; */
     flex-wrap: wrap;
     width: 85%;
     margin: auto;
-    height: 45vh;
+    gap: 15px;
   }
-
   .rowTwo {
     flex-direction: column;
-  }
-
-  .rowTwo {
     gap: 10px;
-    height: 30vh;
+    height: 40vh;
+    margin-top: 85px;
   }
-
   .rowTwoDiv {
     background: rgba(212, 212, 212, 0.4);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(15%);
     width: 85%;
     height: 85%;
     border-radius: 15px;
   }
-
-  .rowThree {
+  .rowThree{
     width: 85%;
     margin: auto;
   }
-  .rowThree h5 {
-    margin-top: 15px;
-  }
-
-  .todayTempParentDiv {
-    width: 100%;
+  .todayTempParentDiv{
+    width: 85%;
     flex-wrap: wrap;
     margin: auto;
-    gap: 15px;
-  }
-  .extraMetric {
-    background: rgba(212, 212, 212, 0.4);
-    padding: 5% 2%;
-    width: fit-content;
-    border-radius: 15px;
-    align-items: center;
+    gap: 25px;
   }
 }
+/*===========End=====================  */
