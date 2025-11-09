@@ -1,158 +1,156 @@
-function dateFormat(timestamp) {
-  const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-  return date.toLocaleString(); // Convert to local time format and return it
-}
+const apiKey = "295d55f9c33da9da9144a5adbe41060f";
 
-async function fetchAQIData(lat, lon) {
-  const fetchAQIData = await fetch(
-    `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=295d55f9c33da9da9144a5adbe41060f`
-  );
-  let formattedData = await fetchAQIData.json();
-  console.log("AQI Data: ", formattedData);
-  let list = formattedData.list[0].components;
-  console.log("Line 242: ", list);
+const searchInput = document.querySelector(".inputField");
+const searchBtn = document.querySelector(".searchIcon");
 
-  $("#no2Value")[0].innerText = list.no2;
+searchBtn.addEventListener("click", () => {
+  const city = searchInput.value.trim();
+  if (city === "") {
+    alert("Please enter a city name!");
+    return;
+  }
+  getWeather(city);
+  getForecast(city);
+  getTodayForecast(city);
+});
 
-  $("#o3Value")[0].innerText = list.o3;
-
-  $("#coValue")[0].innerText = list.co;
-
-  $("#so2Value")[0].innerText = list.so2;
-}
-
-async function nextFiveDays(lat, lon) {
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=295d55f9c33da9da9144a5adbe41060f&units=metric`;
+// ---------- CURRENT WEATHER ----------
+async function getWeather(city) {
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error("Failed to fetch weather data");
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("City not found");
+    const data = await res.json();
+
+    // 🌇 Update Current Weather
+    document.getElementById("cityName").innerText = data.name;
+    document.getElementById("cityTemp").innerHTML = `${Math.round(
+      data.main.temp
+    )} &deg;C`;
+    document.getElementById("skyDesc").innerText =
+      data.weather[0].description;
+
+    // 📅 Date & Time
+    const date = new Date();
+    document.querySelectorAll(".leftChild .d-flex.gap-3 h6")[0].innerText =
+      date.toLocaleDateString();
+    document.querySelectorAll(".leftChild .d-flex.gap-3 h6")[1].innerText =
+      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+    // 🌬 Extra Metrics
+    const metrics = document.querySelectorAll(".extraMetric");
+    if (metrics.length >= 4) {
+      metrics[0].querySelector("h6:nth-child(1)").innerText = "Wind";
+      metrics[0].querySelector("h6:nth-child(2)").innerText =
+        data.wind.speed + " m/s";
+
+      metrics[1].querySelector("h6:nth-child(1)").innerText = "Humidity";
+      metrics[1].querySelector("h6:nth-child(2)").innerText =
+        data.main.humidity + "%";
+
+      metrics[2].querySelector("h6:nth-child(1)").innerText = "Pressure";
+      metrics[2].querySelector("h6:nth-child(2)").innerText =
+        data.main.pressure + " hPa";
+
+      metrics[3].querySelector("h6:nth-child(1)").innerText = "Feels Like";
+      metrics[3].querySelector("h6:nth-child(2)").innerText =
+        Math.round(data.main.feels_like) + "°C";
     }
-    const data = await response.json();
 
-    let dailyForecasts = {};
+    // 🌅 Sunrise & Sunset
+    const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
-    // Extract unique daily data
-    data.list.forEach((item) => {
-      let date = item.dt_txt.split(" ")[0]; // Extract date only
-      if (!dailyForecasts[date]) {
-        dailyForecasts[date] = {
-          temp: item.main.temp.toFixed(1), // Round temperature
-          icon: item.weather[0].icon, // Weather icon
-          day: new Date(date).toLocaleDateString("en-US", { weekday: "long" }), // Get day name
-        };
+    document.querySelector(".sunriseDiv h5").innerText = sunrise;
+    document.querySelector(".sunsetDiv h5").innerText = sunset;
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+// ---------- 5-DAY FORECAST ----------
+async function getForecast(city) {
+  try {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Forecast not available");
+    const data = await res.json();
+
+    // ⏱ Midday forecasts
+    const forecastList = data.list.filter((item) =>
+      item.dt_txt.includes("12:00:00")
+    );
+    const rows = document.querySelectorAll(".forecastRow");
+
+    forecastList.slice(0, 5).forEach((day, i) => {
+      const temp = Math.round(day.main.temp);
+      const date = new Date(day.dt_txt);
+      const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
+      const formatted = date.toLocaleDateString("en-GB");
+
+      if (rows[i]) {
+        // 🌡 Update temperature
+        const tempEl = rows[i].querySelector(
+          ".d-flex.gap-1.align-items-center h6"
+        );
+        if (tempEl) tempEl.innerHTML = `${temp} &deg;C`;
+
+        // 🗓 Update weekday & date
+        const h6s = rows[i].querySelectorAll(":scope > h6");
+        if (h6s.length >= 2) {
+          h6s[0].innerText = weekday;
+          h6s[1].innerText = formatted;
+        }
+
+        // 🌤 Update icon
+        const iconCode = day.weather[0].icon;
+        const iconEl = rows[i].querySelector("img");
+        if (iconEl) {
+          iconEl.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        }
       }
     });
-
-    // Get first 5 unique days
-    let forecastHtml = "";
-    Object.keys(dailyForecasts)
-      .slice(0, 5)
-      .forEach((date) => {
-        let forecast = dailyForecasts[date];
-        forecastHtml += `
-                        <div class="forecastRow d-flex align-items-center justify-content-between">
-                            <div class="d-flex gap-1 align-items-center">
-                                <img src="./images/cloud.png" alt="" width="35px">
-                                <h6 class="m-0">${forecast.temp} &deg;C</h6>
-                            </div>
-                            <h6 class="m-0">${forecast.day}</h6>
-                            <h6 class="m-0">${date}</h6>
-                        </div>
-                    `;
-      });
-
-    document.getElementById("forecastContainer").innerHTML = forecastHtml;
-  } catch (error) {
-    console.error(error);
-    alert("Failed to retrieve weather data. Please check your API key.");
+  } catch (err) {
+    console.error("Forecast Error:", err);
   }
 }
 
-async function todayTemps(lat, lon) {
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=295d55f9c33da9da9144a5adbe41060f&units=metric`;
-
+// ---------- TODAY'S HOURLY FORECAST ----------
+async function getTodayForecast(city) {
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error("Failed to fetch weather data");
-    }
-    const data = await response.json();
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Today's forecast not available");
+    const data = await res.json();
 
-    let todayDate = new Date().toISOString().split("T")[0]; // Get today's date (YYYY-MM-DD)
-    let todayForecasts = data.list.filter((item) =>
-      item.dt_txt.startsWith(todayDate)
-    ); // Get today's data
+    const today = new Date().toISOString().split("T")[0];
+    const todayList = data.list.filter((item) => item.dt_txt.includes(today));
 
-    // Select specific time intervals (e.g., every 3 hours from the API)
-    let selectedHours = todayForecasts.slice(0, 6); // Get first 6 hourly forecasts
+    const boxes = document.querySelectorAll(".todayTemp");
 
-    let todayHtml = "";
-    selectedHours.forEach((item) => {
-      let time = new Date(item.dt_txt).toLocaleTimeString("en-US", {
-        hour: "numeric",
+    todayList.slice(0, boxes.length).forEach((hourData, i) => {
+      const temp = Math.round(hourData.main.temp);
+      const time = new Date(hourData.dt_txt).toLocaleTimeString([], {
+        hour: "2-digit",
         minute: "2-digit",
-        hour12: true,
-      }); // Format time
-      let temp = item.main.temp.toFixed(1); // Round temperature
-      let icon = item.weather[0].icon; // Weather icon
+      });
+      const icon = hourData.weather[0].icon;
 
-      todayHtml += `
-                        <div class="todayTemp">
-                            <h6 class="m-0">${time}</h6>
-                            <img src="./images/cloudy.png" alt="" width="35px">
-                            <h5>${temp}&deg;C</h5>
-                        </div>
-                    `;
+      if (boxes[i]) {
+        boxes[i].querySelector("h6").innerText = time;
+        boxes[i].querySelector(
+          "img"
+        ).src = `https://openweathermap.org/img/wn/${icon}.png`;
+        boxes[i].querySelector("h5").innerHTML = `${temp} &deg;C`;
+      }
     });
-
-    document.getElementById("todayTempContainer").innerHTML = todayHtml;
-  } catch (error) {
-    console.error(error);
-    alert("Failed to retrieve weather data. Please check your API key.");
+  } catch (err) {
+    console.error("Today's forecast error:", err);
   }
-}
-
-async function fetchData() {
-  let cityName = document.getElementsByClassName("inputfield")[0].value;
-  let requestData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=295d55f9c33da9da9144a5adbe41060f&units=metric`
-  );
-  let formattedData = await requestData.json();
-  console.log("Formatted Data: ", formattedData);
-
-  let responseCityName = formattedData.name;
-  let responseTemp = formattedData.main.temp;
-  let skyDescription = formattedData.weather[0].description;
-
-  $("#cityName")[0].innerText = responseCityName;
-  $("#cityTemp")[0].innerText = responseTemp;
-  $("#skyDesc")[0].innerText = skyDescription;
-  $("#humidity")[0].innerText = formattedData.main.humidity;
-  $("#pressure")[0].innerText = formattedData.main.pressure;
-  $("#feelsLike")[0].innerText = formattedData.main.feels_like;
-  $("#visiblity")[0].innerText = formattedData.visibility;
-
-  //Updating date and time
-  let properDate = dateFormat(formattedData.dt);
-  let date = properDate.split(",")[0];
-  let time = properDate.split(",")[1];
-  $("#date")[0].innerText = date;
-  $("#time")[0].innerText = time;
-
-  //updating sunrise and sunset
-  let sunriseTimeStamp = formattedData.sys.sunrise;
-  let sunsetTimeStamp = formattedData.sys.sunset;
-  let properSunriseTime = dateFormat(sunriseTimeStamp).split(",")[1];
-  let properSunsetTime = dateFormat(sunsetTimeStamp).split(",")[1];
-
-  $("#sunriseTime")[0].innerText = properSunriseTime;
-  $("#sunsetTime")[0].innerText = properSunsetTime;
-
-  let lat = formattedData.coord.lat;
-  let lon = formattedData.coord.lon;
-
-  fetchAQIData(lat, lon);
-  nextFiveDays(lat, lon);
-  todayTemps(lat, lon);
 }
